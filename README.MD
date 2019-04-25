@@ -7,5 +7,5 @@
 
 # Executando o serviço
 <p align="center">
-    <img src="./projeto2_MICROSERVICE/img/api.gif" title="run way terminal">
+    <img src="./projeto2_MICROSERVICE/img/api.gif" alt="run way terminal">
 </p>
