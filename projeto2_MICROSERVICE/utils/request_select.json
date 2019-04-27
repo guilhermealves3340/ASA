@@ -1,0 +1,10 @@
+{
+    "class": "categorias",
+    "column":["id_categoria","tituloCategoria","descricaoCatgeoria","fg_ativo"],
+    "data": {
+        "id_categoria": 589,
+        "tituloCategoria": "TUBOLACAO",
+        "descricaoCategoria": "TUBO ALUMINIO 3X4MM DECA",
+        "fg_ativo": 1
+    }
+}

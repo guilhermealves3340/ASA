@@ -1,0 +1,18 @@
+[
+    {
+        "class":"categorias",
+        "id_categoria": 589,
+        "tituloCategoria": "TUBOLACAO",
+        "descricaoCategoria": "TUBO ALUMINIO 3X4MM DECA",
+        "fg_ativo": 1
+    },
+    {
+        "class":"fornecedor",
+        "id_fornecedor": 301,
+        "cnpj": "141.469.594.9494./0001",
+        "telefone": "3432234108",
+        "endereco": "RUA 1, 854, UBERLANDIA MG",
+        "contato": "contato@deca.com.br", 
+        "fg_ativo": 1
+    }
+]
