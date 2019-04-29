@@ -1,7 +1,7 @@
 """
-Trabalho da disciplina de Arquitetura de Software Aplicada - UFU 2019
+Trabalho #2 da disciplina de Arquitetura de Software Aplicada - UFU 2019
 Microserviços usando python-Flask
-Aluno: Guilherme Alves da Silva
+Guilherme Alves da Silva - 11511ECP020
 """
 
 print(__doc__)
@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return jsonify([{'response':'Hello, World!'}])
 
 
 @app.route('/insert', methods=['POST'])

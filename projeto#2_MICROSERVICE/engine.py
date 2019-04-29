@@ -19,7 +19,7 @@ def get(req):
         cond = condition(req['data'])
         sql_command = "SELECT * FROM {} WHERE {};".format(req['class'],cond)
     except:
-        print('[INFO]: ENTRADA INVALIDA DE VALORES')
+        logging.info('[INFO]: ENTRADA INVALIDA DE VALORES')
         return False
 
     _db.execute(sql_command, True)
@@ -38,14 +38,14 @@ def condition(data):
             cond += key[i] + '=' + str(values[i])
     return cond
 
-def update(data):
+def update(req):
     _db = Database()
     try:
         cond = condition(req['data'])
-        new = condition(data['new_data'])
+        new = condition(req['new_data'])
         sql_command = "UPDATE {} SET {} WHERE {};".format(req['class'],new,cond)
     except:
-        print('[INFO]: ENTRADA INVALIDA DE VALORES')
+        logging.info('[INFO]: ENTRADA INVALIDA DE VALORES')
         return False
     
     _db.execute(sql_command,false)
@@ -57,7 +57,13 @@ def update(data):
 
 def delete(data):
     _db = Database()
-    sql_command = "DELETE FROM table WHERE condition;"
+
+    try:
+        sql_command = "DELETE FROM {} WHERE {};".format(req['class'],condition(req['data']))
+    except:
+        logging.info('[INFO]: ENTRADA INVALIDA DE VALORES')
+        return False
+
     _db.execute(sql_command,False)
     if _db.result == True:
         return True

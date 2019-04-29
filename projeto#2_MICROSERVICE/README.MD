@@ -9,3 +9,7 @@
 <p align="center">
   <img src="./img/diagrama.jpeg" title="Diagrama DER">
 </p>
+
+```json
+
+```
