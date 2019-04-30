@@ -1,6 +1,5 @@
 {
     "class": "categorias",
-    "column":["id_categoria","tituloCategoria","descricaoCatgeoria","fg_ativo"],
     "data": {
         "id_categoria": 589,
         "tituloCategoria": "TUBOLACAO",
