@@ -34,7 +34,7 @@ def get():
     req = request.get_json(force=True)
     response = eng.get(req)
 
-    print(response)
+    logging.debug(response)
 
     return jsonify(response)
 

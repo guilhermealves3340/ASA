@@ -28,7 +28,7 @@ class Database():
             conn = connect("dbname={} user={} password={}".format(self.__database, self.__user,
             self.__password))
         except:
-            print('[INFO]: NÃO FOI POSSÍVEL CONECTAR COM O BANCO DE DADOS!')
+            logging.info('[INFO]: NÃO FOI POSSÍVEL CONECTAR COM O BANCO DE DADOS!')
             return False
         
         logging.debug('[SQL]: ',sql_command)
