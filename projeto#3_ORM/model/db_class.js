@@ -1,83 +1,250 @@
 const Sequelize = require('sequelize');
+
+
 const sequelize = new Sequelize('database', 'username', 'password', {
-    host: 'localhost',
-    dialect: postgres
+    host: '127.0.0.1',
+    dialect: 'postgres'
 })
 
+const Categorias = sequelize.define('tb_categorias', {
+    id_categoria: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true
+    },
+    tituloCategoria: {
+        type:Sequelize.STRING,
+        allowNull: false,
+        unique: 'compositeIndex'
+    },
+    descricaoCategoria: {
+        type:Sequelize.STRING,
+        allowNull: false,
+        unique: 'compositeIndex'
+    },
+    fg_ativo: {
+        type:Sequelize.INTEGER,
+        allowNull:false
+    }
+});
 
-class Categorias extends Sequelize.Model {}
-Categorias.init({
-    id_categoria: Sequelize.INTEGER,
-    tituloCategoria: Sequelize.STRING,
-    descricaoCategoria: Sequelize.STRING,
-    fg_ativo: Sequelize.INTEGER
-}, {sequelize, modelName: 'tb_categorias'});
+const Vendas = sequelize.define('tb_vendas', {
+    id_venda: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        primaryKey:true
+    },
+    id_vendedor: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+            model: Vendedores,
+            key: 'id_vendedor',
+            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+        }
+    },
+    id_categoria: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+            model: Categorias,
+            key: 'id_categorias',
+            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+        }
+    },
+    id_produto: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+            model: Produtos,
+            key: 'id_produto',
+            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+        }
+    },
+    dataVenda: {
+        type:Sequelize.DATE,
+        allowNull:false
+    },
+    valorTotal: {
+        type:Sequelize.NUMBER,
+        allowNull:false
+    },
+    quantidade:{
+        type:Sequelize.INTEGER,
+        allowNull:false
+    },
+    fg_ativo: {
+        type:Sequelize.INTEGER,
+        allowNull:false
+    }
+});
 
-class Vendas extends Sequelize.Model {}
-Vendas.init({
-    id_venda: Sequelize.INTEGER,
-    id_vendedor: Sequelize.INTEGER,
-    id_categoria: Sequelize.INTERGER,
-    id_produto: Sequelize.INTEGER,
-    dataVenda: Sequelize.DATE,
-    valorTotal: Sequelize.NUMBER,
-    quantidade: Sequelize.INTERGER,
-    fg_ativo: Sequelize.INTEGER
-}, {sequelize, modelName: 'tb_vendas'});
+const Vendedores = sequelize.define('tb_vendedores', {
+    id_vendedor: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        primaryKey:true
+    },
+    cpf: {
+        type:Sequelize.STRING,
+        allowNull:false
+    },
+    nome: {
+        type:Sequelize.STRING,
+        allowNull:false
+    },
+    carteiraTrabalho: {
+        type: Sequelize.STRING,
+        allowNull:false
+    },
+    telefone: {
+        type: Sequelize.STRING,
+        allowNull:false
+    },
+    dataAdmissao: {
+        type:Sequelize.DATE,
+        allowNull:false
+    },
+    fg_ativo: {
+        type:Sequelize.INTEGER,
+        allowNull:false
+    }
+});
 
-class Vendedores extends Sequelize.Model {}
-Vendedores.init({
-    id_vendedor: Sequelize.
-    cpf: Sequelize.STRING,
-    nome: Sequelize.STRING,
-    carteiraTrabalho: Sequelize.STRING,
-    telefone: Sequelize.STRING,
-    dataAdmissao: Sequelize.DATE,
-    fg_ativo: Sequelize.INTEGER
-}, {sequelize, modelName: 'tb_vendedores'});
+const Fornecedores = sequelize.define('tb_fornecedores', {
+    id_fornecedor: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        primaryKey:true
+    },
+    cnpj: {
+        type:Sequelize.STRING,
+        allowNull:false
+    },
+    razaoSocial: {
+        type: Sequelize.STRING,
+        allowNull:false
+    },
+    telefone: {
+        type: Sequelize.STRING,
+        allowNull:false
+    },
+    endereco: {
+        type:Sequelize.STRING,
+        allowNull:false
+    },
+    contato: {
+        type:Sequelize.STRING,
+        allowNull:false
+    },
+    fg_ativo: {
+        type:Sequelize.INTEGER,
+        allowNull:false
+    }
+});
 
-class Fornecedores extends Sequelize.Model {}
-Fornecedores.init({
-    id_fornecedor: Sequelize.INTEGER,
-    cnpj: Sequelize.STRING,
-    razaoSocial: Sequelize.STRING,
-    telefone: Sequelize.STRING,
-    endereco: Sequelize.STRING,
-    contato: Sequelize.STRING,
-    fg_ativo: Sequelize.INTEGER
-}, {sequelize, modelName: 'tb_fornecedores'});
+const Compras = sequelize.define('tb_compras' ,{
+    id_compra: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        primaryKey:true
+    },
+    id_fornecedor: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+            model: Fornecedores,
+            key: 'id_fornecedore',
+            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+        }
+    },
+    id_produto: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+            model: Produtos,
+            key: 'id_produto',
+            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+        }
 
-class Compras extends Sequelize.Model {}
-Compras.init({
-    id_compra: Sequelize.INTEGER,
-    id_fornecedor: Sequelize.INTEGER,
-    id_produto: Sequelize.INTEGER,
-    id_categoria: Sequelize.INTEGER,
-    dataCompra: Sequelize.DATE,
-    valorTotal: Sequelize.NUMBER,
-    quantidade: Sequelize.INTEGER,
-    fg_ativo: Sequelize.INTEGER
-}, {sequelize, modelName: 'tb_compras'});
+    },
+    id_categoria: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+            model: Categorias,
+            key: 'id_categoria',
+            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+        }
 
-class Compras extends Sequelize.Model {}
-Compras.init({
-    id_fornecedor: Sequelize.INTEGER,
-    id_produto: Sequelize.INTEGER,
-    id_categoria: Sequelize.INTEGER,
-    nomeProduto: Sequelize.STRING,
-    descricaoProduto: Sequelize.STRING,
-    valorUnitario: Sequelize.NUMBER,
-    quantidade: Sequelize.INTEGER,
-    quantidadeMinima: Sequelize.INTEGER,
-    fg_ativo: Sequelize.INTEGER
-}, {sequelize, modelName: 'tb_produtos'});
+    },
+    dataCompra: {
+        type:Sequelize.DATE,
+        allowNull:false
+    },
+    valorTotal: {
+        type: Sequelize.NUMBER,
+        allowNull:false
+    },
+    quantidade: {
+        type:Sequelize.INTEGER,
+        allowNull:false
+    },
+    fg_ativo: {
+        type:Sequelize.INTEGER,
+        allowNull:false
+    }
+});
+
+const Produtos = sequelize.define('tb_produtos', {
+    id_fornecedor: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+            model: Fornecedores,
+            key: 'id_fornecedor',
+            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+        }
+    },
+    id_produto: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        primaryKey:true,
+    },
+    id_categoria: {
+        type:Sequelize.INTEGER,
+        allowNull:false,
+        references:{
+            model: Categorias,
+            key: 'id_categoria',
+            deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+        }
+    },
+    nomeProduto: {
+        type:Sequelize.STRING,
+        allowNull:false
+    },
+    descricaoProduto: {
+        type:Sequelize.STRING,
+        allowNull:false
+    },
+    valorUnitario: {
+        type:Sequelize.NUMBER,
+        allowNull:false
+    },
+    quantidade: {
+        type:Sequelize.INTEGER,
+        allowNull:false
+    },
+    quantidadeMinima: {
+        type:Sequelize.INTEGER,
+        allowNull:false
+    },
+    fg_ativo: {
+        type:Sequelize.INTEGER,
+        allowNull:false
+    }
+});
 
 
-sequelize.sync()
-  .then(() => User.create({
-    username: 'janedoe',
-    birthday: new Date(1980, 6, 20)
-  }))
-  .then(jane => {
-    console.log(jane.toJSON());
-  });
+sequelize.sync({force:true})
