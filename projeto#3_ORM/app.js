@@ -2,21 +2,21 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const sequelize = require('sequelize')
 
+const routes = require('./routes/index')
+
 
 app = express()
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 // Routes
-app.get('/', function(req,res){
-    console.log(req.body)
-    res.send('[OK]')
-})
-
-app.post('/insert', (req, res) => {
-    pass
-})
-
+app.use('/', routes.home)
+app.use('/', routes.vendedores)
+app.use('/', routes.fornecedores)
+app.use('/', routes.produtos)
+app.use('/', routes.compras)
+app.use('/', routes.vendas)
+app.use('/', routes.categorias)
 
 // Run server
 app.listen(3000, function(){
