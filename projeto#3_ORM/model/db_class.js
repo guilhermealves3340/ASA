@@ -1,5 +1,8 @@
 const Sequelize = require('sequelize');
 
+const config = require('../db_config')
+
+console.log(config)
 
 const sequelize = new Sequelize('database', 'username', 'password', {
     host: '127.0.0.1',
@@ -248,3 +251,13 @@ const Produtos = sequelize.define('tb_produtos', {
 
 
 sequelize.sync({force:true})
+
+
+module.exports = {
+    Vendedores,
+    Categorias,
+    Fornecedores,
+    Produtos,
+    Compras,
+    Vendas
+}
